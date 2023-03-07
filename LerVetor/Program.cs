@@ -6,49 +6,72 @@
         int[] vetorB = new int[5];
         int[] vetorC = new int[10];
 
-        lerVetor(vetorA);
-        lerVetor(vetorB);
+        LerVetor(vetorA, "VetorA");
+        LerVetor(vetorB, "VetorB");
 
-        copVetor(vetorA, vetorB, vetorC);
+        vetorC = CopVetor(vetorA, vetorB);
 
-
-        imprimirVetor(vetorA);
+        ImprimirVetor(vetorA, "VetorA");
         Console.WriteLine();
-        imprimirVetor(vetorB);
+        ImprimirVetor(vetorB, "VetorB");
         Console.WriteLine();
-        imprimirVetor(vetorC);
+        ImprimirVetor(vetorC, "VetorC");
+
+        Ordenar(vetorC);
+        Console.WriteLine();
+        ImprimirVetor(vetorC, "VetorC ordenado");
+
+        //Ordenar vetor em ordem crescente
+        void Ordenar(int[] vetC)
+        {
+            int i, j;
+            for (i = 0; i < vetC.Length - 1; i++)
+            {
+                for (j = i + 1; j < vetC.Length; j++)
+                {
+                    if (vetC[i] > vetC[j])
+                    {
+                        int aux = vetC[i];
+                        vetC[i] = vetC[j];
+                        vetC[j] = aux;
+                    }
+                }
+            }
+        }
 
         //Função para imprimir valores
-        void imprimirVetor(int[] vet)
+        void ImprimirVetor(int[] vet, string texto)
         {
-            for(int i =0;i < vet.Length; i++)
+            Console.Write($"{texto}: ");
+            for (int i = 0; i < vet.Length; i++)
             {
                 Console.Write($" {vet[i]}");
             }
         }
 
         //Copiar valores de A e B para o vetor C
-        int[] copVetor(int[] vetA, int[] vetB, int[] vetC)
+        int[] CopVetor(int[] vetA, int[] vetB)
         {
-            for(int i = 0; i < vetA.Length; i++)
+            int[] aux = new int[10];
+            for (int i = 0; i < vetA.Length; i++)
             {
-                vetC[i] = vetorA[i];
+                aux[i] = vetorA[i];
             }
-            for(int i = 0;i < vetB.Length; i++)
+            for (int i = 0; i < vetB.Length; i++)
             {
-                vetC[vetB.Length+i] = vetorB[i];
+                aux[vetA.Length + i] = vetorB[i];
             }
 
-            return vetC;
+            return aux;
         }
 
         //Ler dados para o vetor
-        int[] lerVetor(int[] vet)
+        int[] LerVetor(int[] vet, string texto)
         {
             for (int i = 0; i < vet.Length; i++)
             {
                 Console.Clear();
-                Console.Write($"Informe a posição{i + 1}: ");
+                Console.Write($"Informe a posição {i + 1}, {texto}: ");
                 vet[i] = int.Parse(Console.ReadLine());
             }
             return vet;
